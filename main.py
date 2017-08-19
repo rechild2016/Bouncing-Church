@@ -1,25 +1,34 @@
-from tkinter import *
+
+#!/usr/bin/env python     
+
+import tkinter as tk
 import tkinter.messagebox as messagebox
 
-class Application(Frame):
-    def __init__(self, master=None):
-        Frame.__init__(self, master)
-        self.pack()
-        self.createWidgets()
+windows = tk.Tk()
+windows.title('TEST')
+windows.geometry('350x450')
 
-    def createWidgets(self):
-        self.nameInput = Entry(self)
-        self.nameInput.pack()
-        self.alertButton = Button(self, text='Hello', command=self.hello)
-        self.alertButton.pack()
+e = tk.Entry(windows,show='*')
+e.pack()
 
-    def hello(self):
-        name = self.nameInput.get() or 'world'
-        messagebox.showinfo('Message', 'Hello, %s' % name)
-    
-app = Application()
-# 设置窗口标题:
-app.master.title('Hello World')
-# 主消息循环:
+def insert_point():
+    var = e.get()
+    t.insert('insert',var)
 
-app.mainloop()
+def insert_end():
+    var = e.get()
+    t.insert('end',var)
+
+button1 = tk.Button(windows,text = 'insert point',bg='green',width = 15,
+                    height = 2,command=insert_point)
+button1.pack()
+
+button2 = tk.Button(windows,text = 'insert end',bg='yellow',width = 15,
+                    height = 2,command=insert_end)
+button2.pack()
+
+t=tk.Text(windows,height=8)
+t.pack()
+
+windows.mainloop()
+
