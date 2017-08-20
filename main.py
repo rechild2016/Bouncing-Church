@@ -8,6 +8,18 @@ window = tk.Tk()
 window.title('TEST')
 window.geometry('500x500')
 
+def do_job():
+    canvas.coords(image,(0,0))    
+
+
+menubar = tk.Menu(window)
+filemenu = tk.Menu(menubar)
+menubar.add_cascade(label='Img',menu=filemenu)
+filemenu.add_command(label='Reset',command=do_job)
+filemenu.add_separator()
+filemenu.add_command(label='Exit',command=window.quit)
+window.config(menu=menubar)
+
 canvas = tk.Canvas(window,bg='green',height=450,width=500)
 img_file = tk.PhotoImage(file = 'images.png')
 image = canvas.create_image(0,0,anchor='nw',image=img_file)
