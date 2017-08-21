@@ -8,3 +8,5 @@ after that ,i can also move the pic.
 Add Menubar, including restore and exit.
 
 Add Timer and move a red circle in the track.It's becoming a game!
+
+Add Frame,i can listen keyboard events.

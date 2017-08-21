@@ -1,5 +1,6 @@
 
 #!/usr/bin/env python     
+TRACK_NUM = 200     #save the num of postion in track_list
 
 import math
 import time
@@ -11,13 +12,26 @@ window = tk.Tk()
 window.title('TEST')
 window.geometry('800x600')
 
+def leftKey(event):
+    moveit()
+    print ("Left key pressed")
+
+def rightKey(event):
+    moveit()
+    print ("Right key pressed")
+
+frame = tk.Frame(window)
+window.bind('<Left>', leftKey)
+window.bind('<Right>', rightKey)
+frame.pack()
+
 flag = 1
 counter=0
-track_list=[[0 for col in range(2)] for row in range(500)]
+track_list=[[0 for col in range(2)] for row in range(TRACK_NUM)]
 
 def Track(start,v0,sita):
     global track_list
-    for t in range(500):
+    for t in range(TRACK_NUM):
         x=round(v0*math.cos(sita))
         y=-round(v0*math.sin(sita)-0.3*t)
         track_list[t]=[x,y]
@@ -28,22 +42,21 @@ def do_job():
     global counter
     global track_list
     if flag == 1 :
-        print('init')
         start=(200,200)   
         Track(start,10,(math.pi)/12)
         flag=0
 
-    if counter < 50 :
+    if counter < TRACK_NUM :
         print(track_list[counter])
         # canvas.coords(image,(track_list[counter]))
         canvas.move(oval,track_list[counter][0],track_list[counter][1])
-        counter+=1
+        counter+=2
 
 def Task():
     print('hello')
     global timer
     do_job()
-    timer=threading.Timer(1,Task)
+    timer=threading.Timer(0.1,Task)
     timer.start()
 
 timer=threading.Timer(1,Task)
