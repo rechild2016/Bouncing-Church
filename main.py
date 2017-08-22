@@ -13,11 +13,11 @@ window.title('TEST')
 window.geometry('800x600')
 
 def leftKey(event):
-    moveit()
+    canvas.move(image,-5,0)
     print ("Left key pressed")
 
 def rightKey(event):
-    moveit()
+    canvas.move(image,5,0)
     print ("Right key pressed")
 
 frame = tk.Frame(window)
@@ -48,12 +48,10 @@ def do_job():
 
     if counter < TRACK_NUM :
         print(track_list[counter])
-        # canvas.coords(image,(track_list[counter]))
         canvas.move(oval,track_list[counter][0],track_list[counter][1])
         counter+=2
 
 def Task():
-    print('hello')
     global timer
     do_job()
     timer=threading.Timer(0.1,Task)
@@ -70,9 +68,9 @@ filemenu.add_separator()
 filemenu.add_command(label='Exit',command=window.quit)
 window.config(menu=menubar)
 
-canvas = tk.Canvas(window,bg='green',height=550,width=800)
+canvas = tk.Canvas(window,bg='green',height=600,width=800)
 img_file = tk.PhotoImage(file = 'images.png')
-image = canvas.create_image(0,0,anchor='center',image=img_file)
+image = canvas.create_image(110,450,anchor='center',image=img_file)
 line = canvas.create_line(50,50,200,200,width= 3)
 oval = canvas.create_oval(100,200,110,210,fill='red')
 canvas.pack()
@@ -80,8 +78,8 @@ canvas.pack()
 def moveit():
     canvas.move(image,5,5)
 
-b = tk.Button(window,text='move',command=do_job)
-b.pack()
+# b = tk.Button(window,text='move',command=do_job)
+# b.pack()
 
 window.mainloop()
 timer.cancel()
