@@ -33,15 +33,17 @@ def Track(start,v0,sita):
     global track_list
     sum_x=start[0]
     sum_y=start[1]
+    a=(start[0],start[1])
     for t in range(TRACK_NUM):
         x=round(v0*math.cos(sita))
         y=-round(v0*math.sin(sita)-0.6*t)
         track_list[t]=[x,y]
-        canvas.create_line(sum_x,sum_y,sum_x+x,sum_y+y)
         sum_x += x
         sum_y += y
-        print(sum_x,sum_y)
-  
+        a+=(sum_x,sum_y)
+    print("a====>",a)
+    canvas.create_line(a)
+    del a
 def do_job():
     global flag
     global counter
