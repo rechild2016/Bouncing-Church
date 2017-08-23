@@ -1,6 +1,6 @@
 
 #!/usr/bin/env python     
-TRACK_NUM = 200     #save the num of postion in track_list
+TRACK_NUM = 60     #save the num of postion in track_list
 
 import math
 import time
@@ -31,25 +31,30 @@ track_list=[[0 for col in range(2)] for row in range(TRACK_NUM)]
 
 def Track(start,v0,sita):
     global track_list
+    sum_x=start[0]
+    sum_y=start[1]
     for t in range(TRACK_NUM):
         x=round(v0*math.cos(sita))
-        y=-round(v0*math.sin(sita)-0.3*t)
+        y=-round(v0*math.sin(sita)-0.6*t)
         track_list[t]=[x,y]
-    print(track_list)
-
+        canvas.create_line(sum_x,sum_y,sum_x+x,sum_y+y)
+        sum_x += x
+        sum_y += y
+        print(sum_x,sum_y)
+  
 def do_job():
     global flag
     global counter
     global track_list
     if flag == 1 :
-        start=(200,200)   
-        Track(start,10,(math.pi)/12)
+        start=(100,200)   
+        Track(start,15,(math.pi)/12)
         flag=0
 
     if counter < TRACK_NUM :
         print(track_list[counter])
         canvas.move(oval,track_list[counter][0],track_list[counter][1])
-        counter+=2
+        counter+=1
 
 def Task():
     global timer
@@ -71,7 +76,6 @@ window.config(menu=menubar)
 canvas = tk.Canvas(window,bg='green',height=600,width=800)
 img_file = tk.PhotoImage(file = 'images.png')
 image = canvas.create_image(110,450,anchor='center',image=img_file)
-line = canvas.create_line(50,50,200,200,width= 3)
 oval = canvas.create_oval(100,200,110,210,fill='red')
 canvas.pack()
 
