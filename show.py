@@ -4,9 +4,11 @@ import tkinter.messagebox as messagebox
 import math
 
 TRACK_NUM = 60
-flag = 1
+flag = 0
 counter=0
 track_list=[[0 for col in range(2)] for row in range(TRACK_NUM)]
+Angle = 30 
+Strength = 15
 
 def Track(start,v0,sita):
     global track_list
@@ -27,14 +29,16 @@ def do_job():
     global flag
     global counter
     global track_list
+    print("in do job",Angle,flag)
     if flag == 1 :
         start=(100,200)   
-        line=Track(start,15,(math.pi)/12)
+        print("in do job ---line ",Angle,flag)
+        line=Track(start,Strength,Angle*(math.pi)/180)
         canvas.create_line(line)
-        flag=0
+        # flag=0
 
-    if counter < TRACK_NUM :
-        print(track_list[counter])
+    if flag ==2 and counter < TRACK_NUM :
+        # print(track_list[counter])
         canvas.move(oval,track_list[counter][0],track_list[counter][1])
         counter+=1
 
@@ -46,6 +50,19 @@ def rightKey(event):
     canvas.move(image,5,0)
     print ("Right key pressed")
 
+def upKey(event):
+    global Angle
+    print("up key")
+    Angle += 1
+def downKey(event):
+    global Angle
+    print("down key")
+    Angle -= 1
+def spaceKey(event):
+    global flag
+    flag += 1
+    # event like this:<KeyPress event state=Mod1 keysym=space keycode=32 char=' ' x=-21 y=-33>
+    print(event)
 
 def moveit():
     canvas.move(image,5,5)
@@ -57,7 +74,11 @@ window.geometry('800x600')
 frame = tk.Frame(window)
 window.bind('<Left>', leftKey)
 window.bind('<Right>', rightKey)
+window.bind('<Up>', upKey)
+window.bind('<Down>', downKey)
+window.bind('<space>', spaceKey)
 frame.pack()
+
 menubar = tk.Menu(window)
 filemenu = tk.Menu(menubar)
 menubar.add_cascade(label='Img',menu=filemenu)
