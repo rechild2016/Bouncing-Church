@@ -16,3 +16,5 @@ Add guide line.
 Creat a moudle show.py,improve the design of code
 
 Change the track of line,but do not clear the old linr
+
+Check the collide,and delete the image.
