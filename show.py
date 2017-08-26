@@ -4,7 +4,7 @@ import tkinter.messagebox as messagebox
 import math
 
 TRACK_NUM = 60
-flag = 0
+flag = 1
 counter=0
 track_list=[[0 for col in range(2)] for row in range(TRACK_NUM)]
 Angle = 30 
