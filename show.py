@@ -4,16 +4,16 @@ import tkinter.messagebox as messagebox
 import math
 
 TRACK_NUM = 60
-flag = 1
+flag = 0
 counter=0
 track_list=[[0 for col in range(2)] for row in range(TRACK_NUM)]
 Angle = 30 
-Strength = 15
+Strength = 20
 line =(0,0,0,0)
 
 #碰撞检测
 def Img_collide(dot):
-    imgpos=canvas.coords(image) or (0,0)
+    imgpos=canvas.coords(boss_img) or (0,0)
     if abs(dot[0]-imgpos[0])<50 and abs(dot[1]-imgpos[1])<50:
         return True
     else:
@@ -40,9 +40,9 @@ def do_job():
     global counter
     global track_list
     global line
-    
+    # global oval
     if flag == 1 :
-        start=(100,200)   
+        start=  canvas.coords(image) or (0,0)
         line=Track(start,Strength,Angle*(math.pi)/180)
         canvas.coords(drawline,line)
         # flag=0
@@ -53,7 +53,7 @@ def do_job():
         counter+=1
         if Img_collide(canvas.coords(oval)):
             print("boom!")
-            canvas.delete(image)
+            canvas.delete(boss_img)
 
 def leftKey(event):
     canvas.move(image,-5.3,0)
@@ -74,6 +74,8 @@ def downKey(event):
 def spaceKey(event):
     global flag
     flag += 1
+    position = canvas.coords(image)
+    canvas.coords(oval,position[0],position[1],position[0]+8,position[1]+8)
     # event like this:<KeyPress event state=Mod1 keysym=space keycode=32 char=' ' x=-21 y=-33>
     # print(event)
 
@@ -104,6 +106,11 @@ frame.pack()
 canvas = tk.Canvas(window,bg='green',height=600,width=800)
 img_file = tk.PhotoImage(file = 'images.png')
 image = canvas.create_image(110,450,anchor='center',image=img_file)
+
+img_file2 = tk.PhotoImage(file = "001.png")
+boss_img = canvas.create_image(600,250,anchor='center',image=img_file2)
+
 drawline=canvas.create_line(line)
-oval = canvas.create_oval(100,200,110,210,fill='red')
+oval = canvas.create_oval(0,0,0,0,fill='red')
 canvas.pack()
+        
